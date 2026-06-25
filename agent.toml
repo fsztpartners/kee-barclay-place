@@ -1,0 +1,64 @@
+# Authoring source for barclay-place. Run `npm run sync:entry` to regenerate entry.json. The platform also accepts this agent.toml directly in the upload zip.
+
+"$comment" = "keemakr Marketplace submission for the Barclay Place agent. This is the EntrySubmission the platform's registerEntry() ingests (see keemakr-core src/lib/marketplace/types.ts). Installing it for a tenant creates the 'sales' department + its agents, gated on the required Apollo connection and ICP knowledge base below."
+
+slug = "barclay-place"
+display_name = "Barclay Place"
+description = "Sources and qualifies B2B leads: finds net-new accounts matching your ICP, then scores and ranks them with a deterministic ICP-fit score."
+overview = """
+Barclay Place is your outbound top-of-funnel. It finds net-new accounts that match your ideal customer profile, enriches them through Apollo, and finds verified contact emails. Every account is run through a deterministic ICP-fit scorer (0–100) with a plain rationale, so your reps work a ranked list instead of a raw dump. Set your ICP once in the Knowledge base and the scoring follows it."""
+operator = """
+Powered by the EVE Sales operator runtime, which delegates to this remote eve agent over HTTP. The operator handles auth, knowledge retrieval, and connection brokering, while the agent does the sourcing and the deterministic scoring. Bring your own Apollo (required) and Hunter (optional) credentials via the platform's connection vault."""
+usage = """
+1. Connect your Apollo account (required) so the agent can enrich accounts and find verified emails. 2. Optionally connect Hunter.io as an email-lookup fallback. 3. Set your ideal-customer-profile in the Knowledge base — industries, size bands, and the buying signals that matter to you. 4. Ask the Lead Sourcer to find accounts, then let the Lead Qualifier score and rank them for your reps."""
+category = "sales"
+author = "keemakr"
+icon = "target"
+visibility = "public"
+
+changelog = "Initial release — source + qualify B2B leads with deterministic ICP scoring."
+
+[runtime]
+kind = "eve"
+ref = "https://github.com/keemakrpartners/kee-barclay-place"
+status = "declared"
+
+[manifest.department]
+key = "sales"
+label = "Sales"
+description = "Sourcing and qualification agents."
+
+[[manifest.agents]]
+key = "sourcer"
+display_name = "Lead Sourcer"
+role = "sourcer"
+description = "Finds net-new accounts matching your ICP."
+config = {}
+
+[[manifest.agents]]
+key = "qualifier"
+display_name = "Lead Qualifier"
+role = "qualifier"
+description = "Scores and ranks sourced leads via score_lead."
+config = { tool = "score_lead" }
+
+[manifest.meta]
+eve_root_agent = "agent/agent.ts"
+tools = ["score_lead"]
+
+[[dependencies]]
+kind = "connection"
+provider = "apollo"
+required = true
+reason = "Enrich accounts and find verified contact emails."
+
+[[dependencies]]
+kind = "connection"
+provider = "hunter"
+required = false
+reason = "Fallback email lookup when Apollo has no match."
+
+[[dependencies]]
+kind = "kb"
+required = true
+reason = "Reads your ideal-customer-profile knowledge to target and score."

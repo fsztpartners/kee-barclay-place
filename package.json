@@ -1,0 +1,31 @@
+{
+  "name": "kee-barclay-place",
+  "version": "0.1.0",
+  "private": true,
+  "description": "An eve agent that sources and qualifies B2B leads. One root agent, one tool (score_lead), gated on a required Apollo connection.",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev:eve": "eve dev",
+    "build:eve": "eve build",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "sync:entry": "node scripts/sync-entry.mjs",
+    "bundle": "rm -f barclay-place.zip && zip -r -q barclay-place.zip agent entry.json agent.toml package.json tsconfig.json eslint.config.mjs README.md .nvmrc -x '*/.DS_Store' && echo 'wrote barclay-place.zip' && unzip -l barclay-place.zip"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "4.0.0-beta.67",
+    "eve": "0.13.0",
+    "jose": "^6.2.3",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9",
+    "@types/node": "^20",
+    "eslint": "^9",
+    "smol-toml": "^1.7.0",
+    "typescript": "^5",
+    "typescript-eslint": "^8"
+  }
+}
