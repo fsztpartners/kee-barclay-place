@@ -20,7 +20,7 @@ changelog = "Initial release — source + qualify B2B leads with deterministic I
 
 [runtime]
 kind = "eve"
-ref = "https://github.com/keemakrpartners/kee-barclay-place"
+ref = "https://github.com/fsztpartners/kee-barclay-place"
 status = "declared"
 
 [manifest.department]

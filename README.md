@@ -9,6 +9,27 @@ It's a small, complete Marketplace entry — one root agent, one tool, and a rea
 set of dependencies (Apollo, Hunter, and an ICP knowledge base) that exercise the
 platform's full `register → resolve-dependencies → install` round-trip.
 
+## How to use
+
+This agent is a **keemakr Marketplace entry**. You don't run it directly — you **install it for your tenant** from the keemakr Marketplace, then talk to it through the keemakr operator chat.
+
+**1. Install it.** Find **Barclay Place** in the Marketplace and install it. Installing **Barclay Place** seeds the **Sales** department (disabled) and returns `pending_deps` until you connect its required dependencies: `apollo`, `kb`. Connect them in your tenant, then re-run install (idempotent) to flip to `installed` and enable the agents.
+
+**2. Route to it with `@sales`.** Once installed, the **Sales** department is available in the operator chat. Mention it by its handle — **`@sales`** — to route a request to its agents:
+
+| Agent key | Name | What it does |
+| --- | --- | --- |
+| `sourcer` | Lead Sourcer | Finds net-new accounts matching your ICP. |
+| `qualifier` | Lead Qualifier | Scores and ranks sourced leads via score_lead. |
+
+**3. Ask it.** For example:
+
+> @sales score this lead: Jane Doe, VP Eng at Acme (acme.com)
+
+You'll get back a lead score with rationale, enriched via Apollo and graded against your ICP knowledge base.
+
+> Connecting external services or sending on your behalf always happens through the tenant connections you authorize at install — the agent reaches them via keemakr's capability proxy and never sees your raw credentials.
+
 ## What's here
 
 | Path | What it is |

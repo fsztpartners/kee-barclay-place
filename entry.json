@@ -13,7 +13,7 @@
   "changelog": "Initial release — source + qualify B2B leads with deterministic ICP scoring.",
   "runtime": {
     "kind": "eve",
-    "ref": "https://github.com/keemakrpartners/kee-barclay-place",
+    "ref": "https://github.com/fsztpartners/kee-barclay-place",
     "status": "declared"
   },
   "manifest": {
